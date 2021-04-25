@@ -1,5 +1,4 @@
 const { Schema, model } = require('mongoose');
-const userSchema = require('./User');
 
 const groupSchema = new Schema(
     {
@@ -27,7 +26,7 @@ const groupSchema = new Schema(
     }
 );
 
-groupSchema.virtual('userCount').get(function() {
+groupSchema.virtual('userCount').get(function() { 
     return this.users.length;
 });
 
