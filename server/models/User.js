@@ -19,7 +19,19 @@ const userSchema = new Schema(
             type: String,
             required: true,
             minlength: 5
-        }
+        },
+        groups: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Group'
+            }
+        ],
+        gifts: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Gifts'
+            }
+        ]
     }, 
     {
         toJSON: {
