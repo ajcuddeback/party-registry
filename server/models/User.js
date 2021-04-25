@@ -26,7 +26,19 @@ const userSchema = new Schema(
                 ref: 'Group'
             }
         ],
+        myGroups: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Group'
+            }
+        ],
         gifts: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Gifts'
+            }
+        ],
+        myGifts: [
             {
                 type: Schema.Types.ObjectId,
                 ref: 'Gifts'

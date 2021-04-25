@@ -13,7 +13,12 @@ const groupSchema = new Schema(
             type: String, 
             required: true
         },
-        users: [userSchema]
+        users: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            }
+        ]
     },
     {
         toJSON: {
