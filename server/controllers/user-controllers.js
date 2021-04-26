@@ -26,5 +26,25 @@ module.exports = {
         const token = await signToken(userData);
 
         res.json({ token, userData });
+    },
+
+    async loginUser({ body }, res) {
+        const userData = await User.findOne({
+             username: body.username 
+        });
+
+        if(!userData) {
+            return res.status(400).json({ message: 'Cannot find a user with this username!' });
+        };
+
+        const correctPw = await userData.isCorrectPassword(body.password);
+
+        if(!correctPw) {
+            return res.status(400).json({ message: 'Incorrect Password!' });
+        };
+
+        const token = await signToken(userData);
+
+        res.json({ token, userData });
     }
 }
