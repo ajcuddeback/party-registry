@@ -40,8 +40,17 @@ module.exports = {
         });
 
         if(!groupData) {
-            return res.status(400).json({ message: 'No requests found at this group name!' })
+            return res.status(400).json({ message: 'No requests found at this group name!' });
         }
+
+        res.json(groupData);
+    },
+    async groupResponseRequest({ body }, res) {
+        const groupData = await GroupRequest.findOneAndUpdate(
+            { requester: body.requester, group: body.group },
+            { $set: { status: body.status } },
+            { new: true }
+        );
 
         res.json(groupData);
     }
