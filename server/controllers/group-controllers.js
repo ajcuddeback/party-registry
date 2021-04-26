@@ -33,5 +33,16 @@ module.exports = {
         };
 
         res.json(groupData);
+    },
+    async getJoinRequests({ body }, res) {
+        const groupData = await GroupRequest.find({
+            group: body.group
+        });
+
+        if(!groupData) {
+            return res.status(400).json({ message: 'No requests found at this group name!' })
+        }
+
+        res.json(groupData);
     }
 }
