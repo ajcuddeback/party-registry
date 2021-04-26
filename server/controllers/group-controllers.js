@@ -10,29 +10,37 @@ module.exports = {
 
         res.json(groupData);  
     },
-    async createGroup({ body }, res) {
-        const groupData = await Group.create(body);
+    async createGroup({ user, body }, res) {
+        if(user.username) {
+            const groupData = await Group.create(body);
 
-        if(!groupData) {
-            return res.status(400).json({ message: 'Something went wrong!' });
-        };
+            if(!groupData) {
+                return res.status(400).json({ message: 'Something went wrong!' });
+            };
 
-        res.json(groupData);
+            res.json(groupData);
+        }
+
+        return res.status(400).json({ message: 'You must be logged in!' });
     },
     async groupJoinRequest({ user, body }, res) {
-        const groupData = await GroupRequest.create(
-            {
-                requester: user.username,
-                group: body.group,
-                status: 1
-            }
-        );
+        if(user.username) {
+            const groupData = await GroupRequest.create(
+                {
+                    requester: user.username,
+                    group: body.group,
+                    status: 1
+                }
+            );
 
-        if(!groupData) {
-            return res.status(400).json({ message: 'Something went wrong!' });
-        };
+            if(!groupData) {
+                return res.status(400).json({ message: 'Something went wrong!' });
+            };
 
-        res.json(groupData);
+            res.json(groupData);
+        }
+
+        return res.status(400).json({ message: 'You must be logged in!' })
     },
     async getJoinRequests({ body }, res) {
         const groupData = await GroupRequest.find({
